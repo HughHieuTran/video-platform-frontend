@@ -26,12 +26,22 @@ export class SaveVideoDetailsComponent {
   selectedFileName = '';
   uploadThumbnailSubscription!: Subscription;
   videoId!: string;
+  videoUrl!: string;
+  videoUrlAvailable = false;
   showVideoUrl = false;
   fileUploaded!: boolean ;
+  thumbnailUrl!: string;
   thumbnailUploaded: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(private videoService: VideoService, private route: ActivatedRoute, private matSnackBar: MatSnackBar) {
     this.videoId = this.route.snapshot.params['videoId'];
+
+    // this.videoService.getVideo(this.videoId).subscribe(data => {
+    //   this.videoUrl = data.url;
+    //   this.thumbnailUrl = data.thumbnailUrl;
+    //   this.videoUrlAvailable = true;
+    // })
+
     this.saveVideoForm = new FormGroup({
       title: this.title,
       description: this.description,

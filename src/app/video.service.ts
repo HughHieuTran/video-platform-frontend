@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { UploadVideoResponse } from './upload-video/UploadVideoResponse';
 import { FileSystemFileEntry } from 'ngx-file-drop';
+import { VideoDto } from './VideoDto';
 @Injectable({
   providedIn: 'root'
 })
@@ -34,5 +35,9 @@ export class VideoService {
         headers: new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('access_token')),
         responseType: 'text'
       });
+  }
+
+  public getVideo(videoId: string): Observable<VideoDto> {
+    return this.httpClient.get<VideoDto>("http://localhost:8080/api/video/" + videoId);
   }
 }

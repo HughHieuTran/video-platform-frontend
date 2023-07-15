@@ -2,7 +2,7 @@
     <div fxFlex="20%"></div>
 
     <div fxFlex="30%">
-        <div class="mat-title">Add Video Metadata</div>
+        <h1 class="mat-title">Details</h1>
         <form>
             <div>
                 <mat-form-field appearance="fill">
@@ -61,7 +61,11 @@
         </form>
     </div>
     <div fxFlex="30%">
-
+        <app-video-player *ngIf="videoUrlAvailable" [videoUrl]="videoUrl"></app-video-player>
+        <div *ngIf="showVideoUrl">
+            <h1>You can now view the video at - </h1>
+            <a href="">http://localhost:4200/video/{{videoId}}</a>
+          </div>
     </div>
     <div fxFlex="20%"></div>
 </div>
