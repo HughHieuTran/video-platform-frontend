@@ -10,34 +10,44 @@ import { VideoDto } from './VideoDto';
 export class VideoService {
 
   constructor(private httpClient: HttpClient) {
-
   }
 
-  public uploadVideo(fileEntry: FileSystemFileEntry): Observable<UploadVideoResponse> {
-    return fileEntry.file((file => {
-      //const userId = this.authService.getUserId();
-      const fd = new FormData();
-      fd.append("file", file, file.name);
-   //   fd.append("userId", userId !== null ? userId : '');
-      return this.httpClient.post<UploadVideoResponse>('http://localhost:8080/api/video/upload', fd,
-        {
-          headers: new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('access_token'))
-        });
-    }))
+  uploadVideo(fileEntry: File): Observable<UploadVideoResponse> {
+    const formData = new FormData()
+    formData.append('file', fileEntry, fileEntry.name);
+
+    // HTTP Post call to upload the video
+    return this.httpClient.post<UploadVideoResponse>("http://localhost:8080/api/videos", formData);
   }
 
-  uploadThumbnail(selectedFile: File, videoId: string): Observable<string> {
-    const fd = new FormData();
-    fd.append('file', selectedFile, selectedFile.name);
-    fd.append('videoId', videoId);
-    return this.httpClient.post('http://localhost:8080/api/video/thumbnail/upload', fd,
-      {
-        headers: new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('access_token')),
-        responseType: 'text'
-      });
+  uploadThumbnail(fileEntry: File, videoId: string): Observable<string> {
+    const formData = new FormData()
+    formData.append('file', fileEntry, fileEntry.name);
+    formData.append('videoId', videoId);
+
+    // HTTP Post call to upload the thumbnail
+    return this.httpClient.post("http://localhost:8080/api/videos/thumbnail", formData, {
+      responseType: 'text'
+    });
   }
 
-  public getVideo(videoId: string): Observable<VideoDto> {
-    return this.httpClient.get<VideoDto>("http://localhost:8080/api/video/" + videoId);
+  getVideo(videoId: string): Observable<VideoDto> {
+    return this.httpClient.get<VideoDto>("http://localhost:8080/api/videos/" + videoId);
+  }
+
+  saveVideo(videoMetaData: VideoDto): Observable<VideoDto> {
+    return this.httpClient.put<VideoDto>("http://localhost:8080/api/videos", videoMetaData);
+  }
+
+  getAllVideos(): Observable<Array<VideoDto>> {
+    return this.httpClient.get<Array<VideoDto>>("http://localhost:8080/api/videos");
+  }
+
+  likeVideo(videoId: string): Observable<VideoDto> {
+    return this.httpClient.post<VideoDto>("http://localhost:8080/api/videos/" + videoId + "/like", null);
+  }
+
+  disLikeVideo(videoId: string): Observable<VideoDto> {
+    return this.httpClient.post<VideoDto>("http://localhost:8080/api/videos/" + videoId + "/disLike", null);
   }
 }

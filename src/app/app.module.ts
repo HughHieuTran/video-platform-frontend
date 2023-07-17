@@ -16,7 +16,8 @@ import { FlexModule } from "@angular/flex-layout";
 
 import { MatChipsModule } from "@angular/material/chips";
 import { MatInputModule } from "@angular/material/input";
-import { HttpClientModule } from "@angular/common/http";
+import { MatMenuModule } from "@angular/material/menu";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { UploadVideoComponent } from './upload-video/upload-video.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatStepperModule } from "@angular/material/stepper";
@@ -25,11 +26,13 @@ import { MatOptionModule } from "@angular/material/core";
 import { MatSelectModule } from "@angular/material/select";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { NgxFileDropModule } from 'ngx-file-drop';
-import {VgCoreModule} from '@videogular/ngx-videogular/core';
-import {VgControlsModule} from '@videogular/ngx-videogular/controls';
-import {VgOverlayPlayModule} from '@videogular/ngx-videogular/overlay-play';
-import {VgBufferingModule} from '@videogular/ngx-videogular/buffering';
+import { VgCoreModule } from '@videogular/ngx-videogular/core';
+import { VgControlsModule } from '@videogular/ngx-videogular/controls';
+import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
+import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
 import { VideoPlayerComponent } from './video-player/video-player.component';
+import { AuthConfigModule } from './auth/auth-config.module';
+import { AuthInterceptor } from 'angular-auth-oidc-client';
 
 @NgModule({
   declarations: [
@@ -65,11 +68,13 @@ import { VideoPlayerComponent } from './video-player/video-player.component';
     VgControlsModule,
     VgOverlayPlayModule,
     VgBufferingModule,
-    NgxFileDropModule
+    NgxFileDropModule,
+    AuthConfigModule,
+    MatMenuModule
 
   ],
   providers: [
-
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

@@ -48,7 +48,7 @@
                            aria-describedby="inputGroupFileAddon01" (change)="onFileSelected($event)">
                   </div>
                   <br/>
-                  <div *ngIf="fileUploaded">
+                  <div *ngIf="fileSelected">
                     <p>Selected File: {{selectedFileName}}</p>
                   </div>
                   <hr>
@@ -61,11 +61,7 @@
         </form>
     </div>
     <div fxFlex="30%">
-        <app-video-player *ngIf="videoUrlAvailable" [videoUrl]="videoUrl"></app-video-player>
-        <div *ngIf="showVideoUrl">
-            <h1>You can now view the video at - </h1>
-            <a href="">http://localhost:4200/video/{{videoId}}</a>
-          </div>
+        <app-video-player [videoUrl]="videoUrl"></app-video-player>
     </div>
     <div fxFlex="20%"></div>
 </div>
