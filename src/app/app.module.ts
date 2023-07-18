@@ -39,10 +39,8 @@ import { HomeComponent } from './home/home.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FeaturedComponent } from './featured/featured.component';
 import { VideoCardComponent } from './video-card/video-card.component';
-import { SubcriptionsComponent } from './subcriptions/subcriptions.component';
 import { HistoryComponent } from './history/history.component';
 import { SubscriptionsComponent } from './subscriptions/subscriptions.component';
-import { LikedVideoComponent } from './liked-video/liked-video.component';
 import { LikedVideosComponent } from './liked-videos/liked-videos.component';
 
 @NgModule({
@@ -58,10 +56,10 @@ import { LikedVideosComponent } from './liked-videos/liked-videos.component';
     SidebarComponent,
     FeaturedComponent,
     VideoCardComponent,
-    SubcriptionsComponent,
+    
     HistoryComponent,
     SubscriptionsComponent,
-    LikedVideoComponent,
+    
     LikedVideosComponent
   ],
   imports: [
